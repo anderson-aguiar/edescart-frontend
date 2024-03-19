@@ -9,6 +9,7 @@
 
   --ed-color-font-primary: #fff;
   --ed-color-font-secondary: #636363;
+  --ed-color-font-tertiary: #0caf1d;
 
   --ed-color-font-placeholder: #d9d9d9;
 
@@ -38,6 +39,9 @@ body {
 main {
   padding: 0 20px;
 }
+.ed-mb20{
+  margin-bottom: 20px;
+}
 .ed-container {
   max-width: 960px;
   width: 100%;
@@ -47,6 +51,9 @@ main {
   background-color: var(--ed-color-card-bg);
   border-radius: 4px;
   border: 1px solid var(--ed-color-card-border);
+}
+.ed-line-bottom{
+  border-bottom: 1px solid var(--ed-color-card-border);
 }
 .ed-btn {
   border-radius: 4px;
@@ -58,10 +65,23 @@ main {
   align-items: center;
   width: 100%;
 }
-.dsc-btn-green {
+.ed-btn-green {
   background-color: var(--ed-color-btn-primary);
   color: var(--ed-color-btn-inverse);
   border: none;
+  cursor: pointer;
+}
+.ed-btn-inverse {
+  background-color: var(--ed-color-btn-inverse);
+  color: var(--ed-color-btn-primary);
+  border: 1px solid var(--ed-color-btn-primary);
+  cursor: pointer;
+}
+.ed-search-form-buttons{
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 }
 .ed-form{
   display: flex;
@@ -97,9 +117,7 @@ main {
 .ed-form-control::placeholder{
   color: var(--ed-color-font-placeholder);
 }
-.ed-search-form-buttons{
-  width: 100%;
-}
+
 @media (width >=576px) {
   .ed-form h2 {
       font-size: 24px;

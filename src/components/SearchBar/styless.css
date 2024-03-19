@@ -1,17 +1,17 @@
 #search-section {
-    padding: 20px 0;
+    padding-top: 20px;
 }
 .ed-search-form-container {
     width: 100%;
-    max-width: 280px;
+    max-width: 360px;
     margin: 0 auto;
 }
 @media (width >=576px) {
     #search-section {
-        padding: 40px 0;
+        padding-top: 40px;
     }
 
     .ed-search-form-container {
-        max-width: 360px;
+        max-width: 500px;
     }
 }

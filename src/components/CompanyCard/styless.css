@@ -1,0 +1,25 @@
+#company-card-section{
+    padding: 20px 0;
+}
+.ed-company-card-top{
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--ed-color-font-tertiary);
+    padding: 10px 20px;
+    min-height: 90px;
+
+}
+.ed-company-card-bottom{
+    padding: 10px 20px;
+    color: var(--ed-color-font-secondary);
+    font-weight: 400;
+    font-size: 12px;
+    min-height: 80px;
+}
+.ed-company-cards{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+}
