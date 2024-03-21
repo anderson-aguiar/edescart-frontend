@@ -1,0 +1,6 @@
+.ed-btn-inverse {
+    background-color: var(--ed-color-btn-inverse);
+    color: var(--ed-color-btn-primary);
+    border: 1px solid var(--ed-color-btn-primary);
+    cursor: pointer;
+  }

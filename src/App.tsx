@@ -1,16 +1,15 @@
-import './App.css'
-import CompanyCard from './components/CompanyCard'
-import HeaderClient from './components/HeaderClient'
-import SearchBar from './components/SearchBar'
+
+import Result from './routes/Result'
+import SearchHome from './routes/SearchHome'
+
 
 function App() {
 
 
   return (
     <>
-    <HeaderClient />
-    <SearchBar />
-    <CompanyCard />
+      <SearchHome />
+      <Result />
     </>
   )
 }

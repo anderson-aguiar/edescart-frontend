@@ -1,11 +1,15 @@
-#search-section {
-    padding-top: 20px;
-}
+
 .ed-search-form-container {
     width: 100%;
     max-width: 360px;
     margin: 0 auto;
 }
+.ed-search-form-buttons{
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
 @media (width >=576px) {
     #search-section {
         padding-top: 40px;

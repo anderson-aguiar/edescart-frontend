@@ -1,0 +1,6 @@
+.ed-btn-green {
+    background-color: var(--ed-color-btn-primary);
+    color: var(--ed-color-btn-inverse);
+    border: none;
+    cursor: pointer;
+  }

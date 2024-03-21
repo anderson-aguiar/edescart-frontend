@@ -42,6 +42,9 @@ main {
 .ed-mb20{
   margin-bottom: 20px;
 }
+.ed-mt20{
+  margin-top: 20px;
+}
 .ed-container {
   max-width: 960px;
   width: 100%;
@@ -65,24 +68,7 @@ main {
   align-items: center;
   width: 100%;
 }
-.ed-btn-green {
-  background-color: var(--ed-color-btn-primary);
-  color: var(--ed-color-btn-inverse);
-  border: none;
-  cursor: pointer;
-}
-.ed-btn-inverse {
-  background-color: var(--ed-color-btn-inverse);
-  color: var(--ed-color-btn-primary);
-  border: 1px solid var(--ed-color-btn-primary);
-  cursor: pointer;
-}
-.ed-search-form-buttons{
-  width: 100%;
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-}
+
 .ed-form{
   display: flex;
   flex-direction: column;
@@ -122,4 +108,10 @@ main {
   .ed-form h2 {
       font-size: 24px;
   }
+}
+/*para estilizar a lista futuramente*/
+.ed-company-cards{
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
 }

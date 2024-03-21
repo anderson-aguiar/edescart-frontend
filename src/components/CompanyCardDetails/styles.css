@@ -1,0 +1,28 @@
+.ed-company-card-top{
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    color: var(--ed-color-font-tertiary);
+    padding: 10px 20px;
+    min-height: 20px;
+
+}
+.ed-company-card-bottom{
+    padding: 10px 20px;
+    color: var(--ed-color-font-secondary);
+    font-weight: 400;
+    font-size: 14px;
+    min-height: 80px;
+}
+.ed-company-card-distance{
+    color: var(--ed-color-font-tertiary);
+    font-size: 16px;
+}
+@media (width >=576px) {
+    .ed-company-card-bottom{
+        font-size: 20px;
+    }
+    .ed-company-card-distance{
+        font-size: 22px;
+    }
+}
