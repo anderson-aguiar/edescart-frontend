@@ -1,16 +1,17 @@
 import './styles.css';
-import HeaderClient from "../../components/HeaderClient";
-import SearchCard from '../../components/SearchCard';
+import SearchCard from '../../../components/SearchCard';
+import { Outlet } from 'react-router-dom';
+
 
 export default function SearchHome() {
     return (
         <>
-            <HeaderClient />
             <main>
                 <section id="search-home-section" className='ed-container'>
                     <SearchCard />
                 </section>
             </main>
+            <Outlet />
         </>
     );
 }

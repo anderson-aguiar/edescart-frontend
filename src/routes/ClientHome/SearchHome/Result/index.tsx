@@ -1,6 +1,6 @@
 import './styles.css';
-import CompanyCard from "../../components/CompanyCard";
-import { CompanyMinDTO } from '../../models/company';
+import CompanyCard from "../../../../components/CompanyCard";
+import { CompanyMinDTO } from '../../../../models/company';
 
 const company: CompanyMinDTO[] = [
 
