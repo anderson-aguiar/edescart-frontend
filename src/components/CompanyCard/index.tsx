@@ -1,5 +1,4 @@
 import './styless.css';
-import ButtonInverse from '../ButtonInverse';
 import { CompanyMinDTO } from '../../models/company';
 import CompanyCardDetails from '../CompanyCardDetails';
 
@@ -15,9 +14,6 @@ export default function CompanyCard({ company }: Props) {
                         <CompanyCardDetails key={item.id} company={item} />
                     ))
                 }
-            </div>
-            <div>
-                <ButtonInverse text='Carregar mais' />
             </div>
         </>
     );
