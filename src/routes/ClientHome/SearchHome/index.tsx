@@ -28,6 +28,7 @@ export default function SearchHome() {
                     navigate("/");
                 });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams])
 
     function handleSearch(name: string, postalCode: string) {

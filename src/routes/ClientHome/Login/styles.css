@@ -1,0 +1,21 @@
+.ed-login-form-buttons {
+    width: 100%;
+}
+
+#login-section {
+    padding: 20px 0;
+}
+.ed-login-form-container {
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
+}
+@media (width >=576px) {
+    #login-section {
+        padding: 40px 0;
+    }
+
+    .ed-login-form-container {
+        max-width: 460px;
+    }
+}
