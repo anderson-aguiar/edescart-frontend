@@ -1,15 +1,14 @@
 import { AxiosRequestConfig } from "axios";
-import { requestBackend } from "./requests";
+import { requestBackend } from "../utils/requests";
 
-
-export function findDistance(name: string, postalCode: string){
-    const config: AxiosRequestConfig = {
-        method: "GET",
-        url: "/companies/distance",
-        params: {
-            name,
-            postalCode
-        }
-    }
-    return requestBackend(config);
+export function findDistance(name: string, postalCode: string) {
+  const config: AxiosRequestConfig = {
+    method: "GET",
+    url: "/companies/distance",
+    params: {
+      name,
+      postalCode,
+    },
+  };
+  return requestBackend(config);
 }

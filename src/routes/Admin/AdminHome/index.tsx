@@ -11,10 +11,6 @@ export default function AdminHome() {
             .then(response => {
                 setUser(response.data);
             })
-            .catch(error => {
-                console.log("Error", error);
-            })
-
     }, [])
     return (
         <main>

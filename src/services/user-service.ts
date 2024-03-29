@@ -1,4 +1,4 @@
-import { requestBackend } from "./requests";
+import { requestBackend } from "../utils/requests";
 import { AxiosRequestConfig } from "axios";
 
 export function findMe() {
