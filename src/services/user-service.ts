@@ -1,9 +1,10 @@
 import { requestBackend } from "./requests";
-import * as authService from './auth-service';
+import { AxiosRequestConfig } from "axios";
 
-export function findMe(){
-   const headers = {
-      Authorization: "Bearer " + authService.getAccessToken()
-   }
-   return requestBackend({url: '/users/me', headers});
+export function findMe() {
+  const config: AxiosRequestConfig = {
+    url: "/users/me",
+    withCredentials: true,
+  };
+  return requestBackend(config);
 }
