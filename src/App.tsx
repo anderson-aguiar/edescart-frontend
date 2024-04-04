@@ -8,11 +8,11 @@ import AdminHome from './routes/Admin/AdminHome'
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { history } from './utils/history';
 import { PrivateRoute } from './components/PrivateRoute'
+import Companies from './routes/Admin/Companies'
 
 
 
 function App() {
-
 
   return (
     <HistoryRouter history={history}>
@@ -24,6 +24,7 @@ function App() {
         </Route>
         <Route path='/admin/' element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>} >
           <Route index element={<AdminHome />} />
+          <Route path='companies' element={<Companies />} />
         </Route>
         <Route path='*' element={<Navigate to="/" />} />
       </Routes>

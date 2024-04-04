@@ -11,6 +11,7 @@
 .ed-navbar-admin img {
     width: 45px;
     display: flex;
+    cursor: pointer;
 }
 
 .ed-navbar-icon-admin {
@@ -39,7 +40,13 @@
     }
     .ed-menu-item-rigth img {
         display: block;
-        width: 45px;
+        width: 50px;
+    }
+    .ed-menu-item-rigth p{
+        display: none;
+    }
+    .ed-menu-item-rigth img:hover {
+        width: 55px;
     }
 
 }

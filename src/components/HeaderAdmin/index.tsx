@@ -19,7 +19,7 @@ export default function HeaderAdmin() {
                     </Link>
                 </div>
                 <div className='ed-menu-item-rigth' onClick={handleLogoutClick}>
-                    <img src={imgLogout} alt="Sair" />
+                    <img src={imgLogout} alt="Sair" title='Sair' />
                     <p>Sair</p>
                 </div>
             </nav>

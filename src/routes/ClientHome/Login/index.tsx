@@ -4,9 +4,10 @@ import ButtonPrimary from "../../../components/ButtonPrimary";
 import { useState } from 'react';
 import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<CredentialsDTO>({
         username: '',
         password: ''
@@ -14,13 +15,16 @@ export default function Login() {
 
     function handleSubmit(event: any) {
         event.preventDefault();
+        
         authService.loginRequest(formData)
             .then(response => {
                 authService.saveAccessToken(response.data.access_token);
+                navigate("/admin") 
             })
             .catch(error => {
                 console.log("Error", error)
             })
+           
     }
 
     function handleInputChange(event: any) {

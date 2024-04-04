@@ -1,0 +1,116 @@
+#company-listing-section {
+    padding: 0 20px;
+}
+.ed-company-listing-itens{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ed-company-listing-itens img{
+    width: 40px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+.ed-company-listing-itens img:hover{
+    width: 43px;
+}
+.ed-listing-section-title {
+    color: var(--ed-color-font-secondary);
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ed-company-listing-btn {
+    width: auto;
+    height: 20px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.ed-txt-left {
+    text-align: left;
+}
+
+.ed-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.ed-table thead {
+    height: 55px;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--ed-color-card-bg);
+    color: var(--ed-color-font-secondary);
+}
+
+.ed-table tbody {
+    background-color: var(--ed-color-card-bg);
+    color: var(--ed-color-font-secondary);
+    font-size: 14px;
+    text-align: center;
+}
+
+.ed-table tbody tr {
+    height: 50px;
+    border-top: 1px solid var(--ed-color-card-border);
+}
+
+.ed-table td:nth-child(2) {
+    padding-left: 10px;
+}
+.ed-table th:nth-child(2) {
+    padding-left: 10px;
+}
+.ed-table th:nth-child(2) {
+    border-top-left-radius: 10px;
+}
+
+.ed-table th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.ed-table td:last-child {
+    padding-right: 5px;
+}
+
+.ed-tb576 {
+    display: none;
+}
+
+@media (width >=576px) {
+    .ed-listing-section-title {
+        font-size: 25px;
+    }
+    .ed-tb576 {
+        display: table-cell;
+    }
+
+    .ed-table td:nth-child(1) {
+        padding-left: 10px;
+    }
+
+    .ed-table th:nth-child(1) {
+        padding-left: 10px;
+        border-top-left-radius: 10px;
+    }
+
+    .ed-table th:nth-child(2) {
+        border-top-left-radius: 0;
+    }
+
+    .ed-table td:nth-child(2) {
+        padding-left: 0;
+    }
+    .ed-table th:nth-child(2) {
+        padding-left: 0;
+    }
+}
+
+@media (width >=992px) {
+    .ed-table tbody {
+        font-size: 16px;
+    }
+}
