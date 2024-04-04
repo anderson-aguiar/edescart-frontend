@@ -1,3 +1,28 @@
-#admin-home-section{
+#admin-home-section {
     padding: 20px 0;
+}
+
+.ed-admin-nav img {
+    width: 25px;
+    margin-right: 8px;
+}
+.ed-admin-nav ul {
+    list-style-type: none;
+    margin: 5px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ed-admin-nav ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.ed-admin-nav ul li:hover {
+    background-color: var(--ed-color-bg-quaternary);
+    color: var(--ed-color-font-primary);
+    max-width: 220px;
 }
