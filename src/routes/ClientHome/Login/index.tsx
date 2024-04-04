@@ -12,24 +12,24 @@ export default function Login() {
         password: ''
     })
 
-    function handleSubmit(event: any){
+    function handleSubmit(event: any) {
         event.preventDefault();
         authService.loginRequest(formData)
-        .then(response => {
-            authService.saveAccessToken(response.data.access_token);
-        })
-        .catch(error => {
-            console.log("Error", error)
-        })
+            .then(response => {
+                authService.saveAccessToken(response.data.access_token);
+            })
+            .catch(error => {
+                console.log("Error", error)
+            })
     }
 
-    function handleInputChange(event: any){
+    function handleInputChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        setFormData({...formData, [name]: value})
+        setFormData({ ...formData, [name]: value })
 
     }
-    
+
     return (
         <section className='ed-search-form-container' id='login-section'>
             <div className='ed-login-form-container'>
@@ -38,24 +38,24 @@ export default function Login() {
                     <div className='ed-form-controls-container'>
                         <div>
                             <input
-                             className='ed-form-control'
-                             type="text"
-                             placeholder='Email' 
-                             name='username' 
-                             value={formData.username}
-                             onChange={handleInputChange}
-                             />
+                                className='ed-form-control'
+                                type="text"
+                                placeholder='Email'
+                                name='username'
+                                value={formData.username}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div className='ed-form-error'>Campo obrigatório</div>
                         <div>
-                            <input 
-                                type="password" 
-                                className="ed-form-control" 
-                                placeholder="Senha" 
-                                name="password" 
+                            <input
+                                type="password"
+                                className="ed-form-control"
+                                placeholder="Senha"
+                                name="password"
                                 value={formData.password}
                                 onChange={handleInputChange}
-                                />
+                            />
                         </div>
                     </div>
                     <div className='ed-login-form-buttons'>

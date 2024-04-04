@@ -14,7 +14,9 @@ export default function HeaderClient() {
                     </Link>
                 </div>
                 <div>
-                    <img src={imgAdmin} alt="Admin" />
+                    <Link to="/login">
+                        <img src={imgAdmin} alt="Admin" />
+                    </Link>
                 </div>
             </nav>
         </header>
