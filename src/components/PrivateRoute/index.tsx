@@ -9,3 +9,5 @@ export function PrivateRoute({ children }: Props) {
     }
     return children;
 }
+//Esse componente tem a finalidade de verificar se o usuário está autenticado. Caso sim, ele irá abrir o componente
+//filho na rota especificada, ao contrário irá redirecionar para a rota do login;

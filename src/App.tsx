@@ -1,5 +1,5 @@
 
-import {Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import ClientHome from './routes/ClientHome'
 import SearchHome from './routes/ClientHome/SearchHome'
 import Login from './routes/ClientHome/Login'
