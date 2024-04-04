@@ -27,6 +27,9 @@ export default function Companies() {
             })
     }, [queryParams])
 
+    function handleNextPageClick() {
+        setQueryParams({ ...queryParams, page: queryParams.page + 1 })
+    }
     return (
         <>
             <section id="company-listing-section" className='ed-container'>
@@ -36,10 +39,12 @@ export default function Companies() {
                 </div>
                 <table className="ed-table ed-mt20 ed-mb20">
                     <thead>
-                        <th className='ed-tb576'>ID</th>
-                        <th className="ed-txt-left">Nome</th>
-                        <th></th>
-                        <th></th>
+                        <tr>
+                            <th className='ed-tb576'>ID</th>
+                            <th className="ed-txt-left">Nome</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {
@@ -59,7 +64,10 @@ export default function Companies() {
                     </tbody>
 
                 </table>
-                <ButtonAdmin text='Carregar mais' />
+                {
+                    !isLastPage &&
+                    <ButtonAdmin onNextPage={handleNextPageClick} text='Carregar mais' />
+                }
             </section>
         </>
     );
