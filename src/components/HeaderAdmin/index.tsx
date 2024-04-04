@@ -9,13 +9,12 @@ export default function HeaderAdmin() {
     function handleLogoutClick(){
         authService.logout();
         navigate("/search")
-
     }
     return (
         <header className='ed-admin-header'>
             <nav className='ed-container ed-navbar-admin'>
                 <div className='ed-navbar-icon-admin'>
-                    <Link to="/">
+                    <Link to="/admin">
                         <h1>Admin</h1>
                     </Link>
                 </div>
