@@ -12,7 +12,7 @@ export default function AdminHome() {
             .then(response => {
                 setUser(response.data);
             })
-    }, [])
+    }, [user])
     return (
         <main>
             <section id='admin-home-section' className='ed-container'>

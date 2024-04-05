@@ -15,7 +15,7 @@ export default function Materials() {
             .then(response => {
                 setMaterials(response.data);
             })
-    }, [])
+    }, [materials])
 
     return (
         <>

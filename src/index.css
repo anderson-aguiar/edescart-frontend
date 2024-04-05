@@ -144,3 +144,38 @@ main {
   gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
 }
+/*------------------------------------*/
+/* dialog styles */
+.ed-dialog-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ed-dialog-box{
+  background-color: var(--ed-color-card-bg);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ed-dialog-box h2{
+  font-size: 14px;
+  text-align: center;
+  color: var(--ed-color-font-secondary);
+  margin-bottom: 20px;
+}
+@media (width >=576px) {
+  .ed-dialog-box h2{
+    font-size: 20px;
+  }
+}

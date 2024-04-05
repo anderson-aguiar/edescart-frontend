@@ -1,0 +1,7 @@
+.ed-dialog-btn {
+    background-color: var(--ed-color-btn-inverse);
+    color: var(--ed-color-font-secondary);
+    border: 1px solid var(--ed-color-bg-quaternary);
+    cursor: pointer;
+    text-transform: uppercase;
+  }
