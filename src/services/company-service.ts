@@ -25,3 +25,11 @@ export function findAll(page: number, size=12, sort="name"){
   }
   return requestBackend(config);
 }
+export function deleteById(id: number){
+  const config: AxiosRequestConfig = {
+    method: "DELETE",
+    url:`/companies/${id}`,
+    withCredentials: true
+  }
+  return requestBackend(config);
+}

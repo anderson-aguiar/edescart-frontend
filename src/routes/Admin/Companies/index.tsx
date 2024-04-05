@@ -18,6 +18,7 @@ export default function Companies() {
     })
     const [dialogConfirmationData, setDialogConfirmationData] = useState({
         visible: false,
+        id: 0,
         message: "Tem certeza?"
     })
     const [isLastPage, setIsLastPage] = useState(false);
@@ -39,15 +40,25 @@ export default function Companies() {
     function handleNextPageClick() {
         setQueryParams({ ...queryParams, page: queryParams.page + 1 })
     }
-    function handleDialogInfoClose(){
-        setDialogInfoData({...dialogInfoData, visible: false})
+    function handleDialogInfoClose() {
+        setDialogInfoData({ ...dialogInfoData, visible: false })
     }
-    function handleDeleteClick(){
-        setDialogConfirmationData({...dialogConfirmationData, visible: true})
+    function handleDeleteClick(companyId: number) {
+        setDialogConfirmationData({ ...dialogConfirmationData, visible: true, id: companyId })
     }
-    function handleDialogConfirmationAnswer(answer : boolean){
-        setDialogConfirmationData({...dialogConfirmationData, visible: false})
-        console.log(answer)
+    function handleDialogConfirmationAnswer(answer: boolean, companyId: number) {
+        if (answer) {
+            companyService.deleteById(companyId)
+                .then(() => {
+                    setCompanies([]);
+                    setQueryParams({ ...queryParams, page: 0 })
+                    setDialogInfoData({...dialogInfoData ,visible: true})
+                })
+                .catch(error => {
+                    setDialogInfoData({visible: true, message: error.response.error})
+                })
+        }
+        setDialogConfirmationData({ ...dialogConfirmationData, visible: false })
     }
     return (
         <main>
@@ -75,7 +86,7 @@ export default function Companies() {
                                         <img className='ed-company-listing-btn' src={editImg} alt='Editar' />
                                     </td>
                                     <td>
-                                        <img onClick={handleDeleteClick} className='ed-company-listing-btn' src={deleteImg} alt='Deletar' />
+                                        <img onClick={() => handleDeleteClick(company.id)} className='ed-company-listing-btn' src={deleteImg} alt='Deletar' />
                                     </td>
                                 </tr>
                             ))
@@ -90,12 +101,13 @@ export default function Companies() {
             </section>
             {
                 dialogInfoData.visible &&
-                <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>
+                <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose} />
             }
-                        {
+            {
                 dialogConfirmationData.visible &&
                 <DialogConfirmation
-                     message={dialogConfirmationData.message}                      
+                    id={dialogConfirmationData.id}
+                    message={dialogConfirmationData.message}
                     onDialogAnswer={handleDialogConfirmationAnswer}
                 />
             }
