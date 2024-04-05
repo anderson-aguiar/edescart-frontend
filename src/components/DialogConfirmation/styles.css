@@ -1,0 +1,13 @@
+.ed-dialog-btn-inverse {
+  border: 1px solid var(--ed-color-bg-quaternary);
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--ed-color-btn-inverse);
+  background-color: var(--ed-color-font-secondary);
+  margin-left: 20px;
+}
+
+.ed-dialog-confirmation-btns {
+  display: flex;
+  width: 100%;
+}

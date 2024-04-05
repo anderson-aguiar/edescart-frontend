@@ -7,6 +7,7 @@ import * as companyService from '../../../services/company-service';
 import { useEffect, useState } from 'react';
 import { CompanyDTO } from '../../../models/company';
 import DialogInfo from '../../../components/DialogInfo';
+import DialogConfirmation from '../../../components/DialogConfirmation';
 type QueryParams = {
     page: number;
 }
@@ -14,6 +15,10 @@ export default function Companies() {
     const [dialogInfoData, setDialogInfoData] = useState({
         visible: false,
         message: "Operação com sucesso!"
+    })
+    const [dialogConfirmationData, setDialogConfirmationData] = useState({
+        visible: false,
+        message: "Tem certeza?"
     })
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -38,7 +43,11 @@ export default function Companies() {
         setDialogInfoData({...dialogInfoData, visible: false})
     }
     function handleDeleteClick(){
-        setDialogInfoData({...dialogInfoData, visible: true})
+        setDialogConfirmationData({...dialogConfirmationData, visible: true})
+    }
+    function handleDialogConfirmationAnswer(answer : boolean){
+        setDialogConfirmationData({...dialogConfirmationData, visible: false})
+        console.log(answer)
     }
     return (
         <main>
@@ -82,6 +91,13 @@ export default function Companies() {
             {
                 dialogInfoData.visible &&
                 <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>
+            }
+                        {
+                dialogConfirmationData.visible &&
+                <DialogConfirmation
+                     message={dialogConfirmationData.message}                      
+                    onDialogAnswer={handleDialogConfirmationAnswer}
+                />
             }
         </main>
     );
