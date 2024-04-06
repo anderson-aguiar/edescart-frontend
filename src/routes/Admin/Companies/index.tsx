@@ -55,7 +55,7 @@ export default function Companies() {
                     setDialogInfoData({...dialogInfoData ,visible: true})
                 })
                 .catch(error => {
-                    setDialogInfoData({visible: true, message: error.response.error})
+                    setDialogInfoData({visible: true, message: error.response.data.error})
                 })
         }
         setDialogConfirmationData({ ...dialogConfirmationData, visible: false })

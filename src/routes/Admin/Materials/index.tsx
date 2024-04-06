@@ -5,8 +5,20 @@ import addMaterial from '../../../assets/addMaterial.svg';
 import * as materialService from '../../../services/material-service';
 import { useEffect, useState } from 'react';
 import { MaterialDTO } from '../../../models/material';
+import DialogInfo from '../../../components/DialogInfo';
+import DialogConfirmation from '../../../components/DialogConfirmation';
 
 export default function Materials() {
+    const [dialogInfoData, setDialogInfoData] = useState({
+        visible: false,
+        message: "Operação com sucesso!"
+    })
+
+    const [dialogConfirmationData, setDialogConfirmationData] = useState({
+        visible: false,
+        id: 0,
+        message: "Tem certeza?"
+    })
 
     const [materials, setMaterials] = useState<MaterialDTO[]>([]);
 
@@ -17,6 +29,26 @@ export default function Materials() {
             })
     }, [materials])
 
+    function handleDeleteClick(materialId: number) {
+        setDialogConfirmationData({ ...dialogConfirmationData, visible: true, id: materialId })
+    }
+
+    function handleDialogInfoClose() {
+        setDialogInfoData({ ...dialogInfoData, visible: false })
+    }
+    function handleDialogConfirmationAnswer(answer: boolean, companyId: number) {
+        if (answer) {
+            materialService.deleteById(companyId)
+                .then(() => {
+                    setMaterials([]);
+                    setDialogInfoData({...dialogInfoData ,visible: true})
+                })
+                .catch(error => {
+                    setDialogInfoData({visible: true, message: error.response.data.error})
+                })
+        }
+        setDialogConfirmationData({ ...dialogConfirmationData, visible: false })
+    }
     return (
         <>
             <section id="material-listing-section" className='ed-container'>
@@ -43,7 +75,7 @@ export default function Materials() {
                                         <img className='ed-material-listing-btn' src={editImg} alt='Editar' />
                                     </td>
                                     <td>
-                                        <img className='ed-material-listing-btn' src={deleteImg} alt='Deletar' />
+                                        <img onClick={() => handleDeleteClick(material.id)} className='ed-material-listing-btn' src={deleteImg} alt='Deletar' />
                                     </td>
                                 </tr>
                             ))
@@ -51,6 +83,18 @@ export default function Materials() {
                     </tbody>
                 </table>
             </section>
+            {
+                dialogInfoData.visible &&
+                <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose} />
+            }
+            {
+                dialogConfirmationData.visible &&
+                <DialogConfirmation
+                    id={dialogConfirmationData.id}
+                    message={dialogConfirmationData.message}
+                    onDialogAnswer={handleDialogConfirmationAnswer}
+                />
+            }
         </>
     );
 }

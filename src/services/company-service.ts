@@ -13,23 +13,23 @@ export function findDistance(name: string, postalCode: string) {
   return requestBackend(config);
 }
 
-export function findAll(page: number, size=12, sort="name"){
+export function findAll(page: number, size = 12, sort = "name") {
   const config: AxiosRequestConfig = {
     method: "GET",
-    url: '/companies',
-    params:{
+    url: "/companies",
+    params: {
       page,
       size,
-      sort
-    }
-  }
+      sort,
+    },
+  };
   return requestBackend(config);
 }
-export function deleteById(id: number){
+export function deleteById(id: number) {
   const config: AxiosRequestConfig = {
     method: "DELETE",
-    url:`/companies/${id}`,
-    withCredentials: true
-  }
+    url: `/companies/${id}`,
+    withCredentials: true,
+  };
   return requestBackend(config);
 }
