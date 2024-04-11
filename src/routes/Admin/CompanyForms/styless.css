@@ -24,6 +24,9 @@
 .ed-mt20-input{
     margin-top: 20px;
 }
+.ed-form-cep{
+    text-transform: uppercase;
+}
 
 @media (width >=576px) {
     #search-section {

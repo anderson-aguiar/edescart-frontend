@@ -50,6 +50,9 @@ export default function Companies() {
         setDialogConfirmationData({ ...dialogConfirmationData, visible: true, id: companyId })
 
     }
+    function handleUpdateClick(companyId: number){
+        navigate(`/admin/company/${companyId}`);
+    }
     function handleNewCompanyClick(){
         navigate("/admin/company/create")
     }
@@ -90,7 +93,7 @@ export default function Companies() {
                                     <td className='ed-tb576'>{company.id}</td>
                                     <td className='ed-txt-left'>{company.name}</td>
                                     <td>
-                                        <img className='ed-company-listing-btn' src={editImg} alt='Editar' />
+                                        <img onClick={() => handleUpdateClick(company.id)} className='ed-company-listing-btn' src={editImg} alt='Editar' />
                                     </td>
                                     <td>
                                         <img onClick={() => handleDeleteClick(company.id)} className='ed-company-listing-btn' src={deleteImg} alt='Deletar' />

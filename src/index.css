@@ -133,7 +133,10 @@ main {
 .ed-form-control::placeholder {
   color: var(--ed-color-font-placeholder);
 }
-
+.ed-form-select{
+  padding: unset;
+  height: auto;
+}
 @media (width >=576px) {
   .ed-form h2 {
     font-size: 24px;

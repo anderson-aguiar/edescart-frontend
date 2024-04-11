@@ -2,7 +2,7 @@ import { AddressDTO } from "./address";
 import { MaterialDTO } from "./material";
 
 export type CompanyDTO = {
-    id: number;
+    id?: number;
     name: string;
     phone: string;
     address: AddressDTO;

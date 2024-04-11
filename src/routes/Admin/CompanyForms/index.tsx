@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Select from 'react-select';
 import './styless.css';
 import * as materialService from '../../../services/material-service';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,7 @@ import { selectStyles } from '../../../utils/select';
 import { MaterialDTO } from '../../../models/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../components/FormInput';
-
+import FormSelect from '../../../components/FormSelect';
 
 export default function CompanyForms() {
     const navigate = useNavigate();
@@ -25,7 +24,7 @@ export default function CompanyForms() {
             name: "name",
             type: "text",
             placeholder: "Nome",
-            validation: function (value: string){
+            validation: function (value: string) {
                 return value.length >= 3 && value.length <= 80;
             },
             message: "Favor informar um nome de 3 a 80 caracteres"
@@ -56,7 +55,11 @@ export default function CompanyForms() {
             id: "street",
             name: "street",
             type: "text",
-            placeholder: "Rua"
+            placeholder: "Rua",
+            validation: function(value: string){
+                return /^([^ ]+).*$/.test(value) && value.length >= 10 && value.length <= 80;
+            },
+            message: "Favor informar uma rua válida"
         },
         cep: {
             value: "",
@@ -64,7 +67,7 @@ export default function CompanyForms() {
             name: "cep",
             type: "text",
             placeholder: "CEP",
-            validation: function (value: string){
+            validation: function (value: string) {
                 return /(^\d{5})-?(\d{3}$)/.test(value);
             },
             message: "Informe um CEP válido"
@@ -85,7 +88,11 @@ export default function CompanyForms() {
             id: "city",
             name: "city",
             type: "text",
-            placeholder: "Cidade"
+            placeholder: "Cidade",
+            validation: function(value: string){
+                return /^([^ ]+).*$/.test(value);
+            },
+            message: "Favor informar uma cidade"
         },
         state: {
             value: "",
@@ -93,8 +100,10 @@ export default function CompanyForms() {
             name: "state",
             type: "text",
             placeholder: "UF",
-            validation: function (value: string){
-                return /^(\s*(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)?)$/.test(value.toUpperCase());
+            validation: function (value: string) {
+                return /^(\s*(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)?)$/.test(value.toUpperCase())
+                 && /^.+$/.test(value)
+                 && /^([^ ]+).*$/.test(value);
             },
             message: "Favor informar um UF válido"
         }
@@ -119,7 +128,22 @@ export default function CompanyForms() {
     }, [])
     function handleSubmit(event: any) {
         event.preventDefault();
-
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        const formAddressDataValidated = forms.dirtyAndValidateAll(formAddressData);
+        if(forms.hasAnyInvalid(formDataValidated) || forms.hasAnyInvalid(formAddressDataValidated)){
+            setFormData(formDataValidated);
+            setFormAddressData(formAddressDataValidated);
+            return;
+        }
+        const address = forms.toValues(formAddressData);
+        const c = forms.toValues(formData);
+        const company = {
+            name: c.name,
+            phone: c.phone,
+            address: address,
+            materials: c.materials
+        }
+        //console.log(company);
     }
     function handleNewCompanyReset() {
         navigate("/admin/companies");
@@ -136,11 +160,11 @@ export default function CompanyForms() {
         const result = forms.updateAndValidate(formAddressData, name, value);
         setFormAddressData(result);
     }
-    function handleTurnDirty(name: string){
+    function handleTurnDirty(name: string) {
         const newFormData = forms.dirtyAndValidate(formData, name);
         setFormData(newFormData);
     }
-    function handleAddressTurnDirty(name: string){
+    function handleAddressTurnDirty(name: string) {
         const newFormData = forms.dirtyAndValidate(formAddressData, name);
         setFormAddressData(newFormData);
     }
@@ -176,7 +200,7 @@ export default function CompanyForms() {
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
-
+                            <div className='ed-form-error'>{formAddressData.street.message}</div>
                         </div>
                         <div>
                             <FormInput
@@ -185,6 +209,7 @@ export default function CompanyForms() {
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
+                            <div className='ed-form-error'>{formAddressData.city.message}</div>
                         </div>
                         <div className='ed-form-address'>
                             <div>
@@ -196,14 +221,14 @@ export default function CompanyForms() {
                                 />
                                 <div className='ed-form-error'>{formAddressData.number.message}</div>
                             </div>
-  
+
                             <div className='ed-ml5 ed-mt20-input'>
                                 <FormInput
                                     {...formAddressData.state}
                                     onTurnDirty={handleAddressTurnDirty}
-                                    className='ed-form-control '
+                                    className='ed-form-control ed-form-cep'
                                     onChange={handleInputAddressChange}
-                               
+
                                 />
                                 <div className='ed-form-error'>{formAddressData.state.message}</div>
                             </div>
@@ -217,19 +242,23 @@ export default function CompanyForms() {
                             />
                             <div className='ed-form-error'>{formAddressData.cep.message}</div>
                         </div>
-                        <div className='ed-form-select'>
-                            <Select
+                        <div>
+                            <FormSelect
+                                {...formData.materials}
                                 options={materials}
-                                onChange={(obj) => {
+                                onChange={(obj: any) => {
                                     const newFormData = forms.update(formData, "materials", obj);
                                     setFormData(newFormData);
                                 }}
-                                getOptionLabel={(obj) => obj.name}
-                                getOptionValue={(obj) => String(obj.id)}
+                                getOptionLabel={(obj: any) => obj.name}
+                                getOptionValue={(obj: any) => String(obj.id)}
+                                onTurnDirty={handleTurnDirty}
                                 styles={selectStyles}
                                 isSearchable
                                 isMulti
+                                className="ed-form-control ed-form-select"
                             />
+                            <div className='ed-form-error'>{formData.materials.message}</div>
                         </div>
                     </div>
                     <div className='ed-search-form-buttons-admin'>

@@ -1,5 +1,5 @@
 export type AddressDTO = {
-    id: number;
+    id?: number;
     street: string;
     cep: string;
     number: number;

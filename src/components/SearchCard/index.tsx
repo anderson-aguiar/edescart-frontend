@@ -53,7 +53,7 @@ export default function SearchCard({ onSearch }: Props) {
                             <input className='ed-form-control' type="text" placeholder='CEP' name='cep'
                                 onChange={handlePostalCodeChange} />
                         </div>
-                        <div className='ed-form-select'>
+                        <div className='ed-form-select ed-form-control'>
                             <Select
                                 options={materials}
                                 onChange={(obj => {
