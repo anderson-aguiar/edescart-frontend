@@ -9,6 +9,7 @@ import { MaterialDTO } from '../../../models/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../components/FormInput';
 import FormSelect from '../../../components/FormSelect';
+import { CompanyDTO } from '../../../models/company';
 
 export default function CompanyForms() {
     const navigate = useNavigate();
@@ -56,7 +57,7 @@ export default function CompanyForms() {
             name: "street",
             type: "text",
             placeholder: "Rua",
-            validation: function(value: string){
+            validation: function (value: string) {
                 return /^([^ ]+).*$/.test(value) && value.length >= 10 && value.length <= 80;
             },
             message: "Favor informar uma rua válida"
@@ -89,7 +90,7 @@ export default function CompanyForms() {
             name: "city",
             type: "text",
             placeholder: "Cidade",
-            validation: function(value: string){
+            validation: function (value: string) {
                 return /^([^ ]+).*$/.test(value);
             },
             message: "Favor informar uma cidade"
@@ -102,8 +103,8 @@ export default function CompanyForms() {
             placeholder: "UF",
             validation: function (value: string) {
                 return /^(\s*(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)?)$/.test(value.toUpperCase())
-                 && /^.+$/.test(value)
-                 && /^([^ ]+).*$/.test(value);
+                    && /^.+$/.test(value)
+                    && /^([^ ]+).*$/.test(value);
             },
             message: "Favor informar um UF válido"
         }
@@ -130,20 +131,28 @@ export default function CompanyForms() {
         event.preventDefault();
         const formDataValidated = forms.dirtyAndValidateAll(formData);
         const formAddressDataValidated = forms.dirtyAndValidateAll(formAddressData);
-        if(forms.hasAnyInvalid(formDataValidated) || forms.hasAnyInvalid(formAddressDataValidated)){
+        if (forms.hasAnyInvalid(formDataValidated) || forms.hasAnyInvalid(formAddressDataValidated)) {
             setFormData(formDataValidated);
             setFormAddressData(formAddressDataValidated);
             return;
         }
         const address = forms.toValues(formAddressData);
         const c = forms.toValues(formData);
-        const company = {
+        const requestBody: CompanyDTO = {
             name: c.name,
             phone: c.phone,
             address: address,
             materials: c.materials
         }
-        //console.log(company);
+        if (isEditing) {
+            requestBody.id = Number(params.companyId);
+        }
+
+        const request = isEditing ? companyService.updateRequest(requestBody) : companyService.insertRequest(requestBody);
+        request
+            .then(() => {
+                navigate("/admin/companies")
+            })
     }
     function handleNewCompanyReset() {
         navigate("/admin/companies");

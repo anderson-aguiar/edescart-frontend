@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
+import { CompanyDTO } from "../models/company";
 
 export function findDistance(name: string, postalCode: string) {
   const config: AxiosRequestConfig = {
@@ -39,4 +40,22 @@ export function findById(id: number) {
     url: `/companies/${id}`,
   };
   return requestBackend(config);
+}
+export function updateRequest(obj: CompanyDTO){
+  const config: AxiosRequestConfig = {
+    method: "PUT",
+    url: `/companies/${obj.id}`,
+    withCredentials: true,
+    data: obj
+  }
+  return requestBackend(config)
+}
+export function insertRequest(obj: CompanyDTO){
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: `/companies`,
+    withCredentials: true,
+    data: obj
+  }
+  return requestBackend(config)
 }
