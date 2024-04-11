@@ -8,10 +8,13 @@ import { useEffect, useState } from 'react';
 import { CompanyDTO } from '../../../models/company';
 import DialogInfo from '../../../components/DialogInfo';
 import DialogConfirmation from '../../../components/DialogConfirmation';
+import { useNavigate } from 'react-router-dom';
 type QueryParams = {
     page: number;
 }
 export default function Companies() {
+    const navigate = useNavigate();
+
     const [dialogInfoData, setDialogInfoData] = useState({
         visible: false,
         message: "Operação com sucesso!"
@@ -45,6 +48,10 @@ export default function Companies() {
     }
     function handleDeleteClick(companyId: number) {
         setDialogConfirmationData({ ...dialogConfirmationData, visible: true, id: companyId })
+
+    }
+    function handleNewCompanyClick(){
+        navigate("/admin/company/create")
     }
     function handleDialogConfirmationAnswer(answer: boolean, companyId: number) {
         if (answer) {
@@ -65,7 +72,7 @@ export default function Companies() {
             <section id="company-listing-section" className='ed-container'>
                 <div className='ed-mt20 ed-line-bottom ed-company-listing-itens'>
                     <h2 className=' ed-listing-section-title '>Pontos de Coleta</h2>
-                    <img src={addCompany} alt='Adicionar Ponto de Coleta' title='Add Novo' />
+                    <img src={addCompany} alt='Adicionar Ponto de Coleta' title='Add Novo' onClick={handleNewCompanyClick} />
                 </div>
                 <table className="ed-table ed-mt20 ed-mb20">
                     <thead>
