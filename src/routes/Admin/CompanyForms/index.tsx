@@ -127,6 +127,14 @@ export default function CompanyForms() {
         const dataValidated = forms.validate(dataUpdated, name);
         setFormAddressData(dataValidated);
     }
+    function handleTurnDirty(name: string){
+        const newFormData = forms.toDirty(formData, name);
+        setFormData(newFormData);
+    }
+    function handleAddressTurnDirty(name: string){
+        const newFormData = forms.toDirty(formAddressData, name);
+        setFormAddressData(newFormData);
+    }
     return (
 
         <>
@@ -137,6 +145,7 @@ export default function CompanyForms() {
                         <div>
                             <FormInput
                                 {...formData.name}
+                                onTurnDirty={handleTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputChange}
                             />
@@ -144,6 +153,7 @@ export default function CompanyForms() {
                         <div>
                             <FormInput
                                 {...formData.phone}
+                                onTurnDirty={handleTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputChange}
                             />
@@ -151,6 +161,7 @@ export default function CompanyForms() {
                         <div>
                             <FormInput
                                 {...formAddressData.street}
+                                onTurnDirty={handleAddressTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
@@ -159,6 +170,7 @@ export default function CompanyForms() {
                         <div>
                             <FormInput
                                 {...formAddressData.city}
+                                onTurnDirty={handleAddressTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
@@ -167,6 +179,7 @@ export default function CompanyForms() {
                             <div>
                                 <FormInput
                                     {...formAddressData.number}
+                                    onTurnDirty={handleAddressTurnDirty}
                                     className='ed-form-control'
                                     onChange={handleInputAddressChange}
                                 />
@@ -176,6 +189,7 @@ export default function CompanyForms() {
                             <div className='ed-ml5 ed-mt20-input'>
                                 <FormInput
                                     {...formAddressData.state}
+                                    onTurnDirty={handleAddressTurnDirty}
                                     className='ed-form-control '
                                     onChange={handleInputAddressChange}
                                 />
@@ -184,6 +198,7 @@ export default function CompanyForms() {
                         <div>
                             <FormInput
                                 {...formAddressData.cep}
+                                onTurnDirty={handleAddressTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
