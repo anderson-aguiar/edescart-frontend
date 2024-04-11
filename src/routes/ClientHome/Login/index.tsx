@@ -47,9 +47,13 @@ export default function Login() {
     function handleInputChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        setFormData(forms.update(formData, name, value));
+        const result = forms.updateAndValidate(formData, name, value);
+        setFormData(result);
     }
-
+    function handleTurnDirty(name: string){
+        const newFormData = forms.dirtyAndValidate(formData, name);
+        setFormData(newFormData);
+    }
     return (
         <section className='ed-search-form-container' id='login-section'>
             <div className='ed-login-form-container'>
@@ -59,14 +63,17 @@ export default function Login() {
                         <div>
                             <FormInput
                                 { ...formData.username }
+                                onTurnDirty={handleTurnDirty}
                                 className='ed-form-control'
                                 onChange={handleInputChange}
                             />
+                            <div className='ed-form-error'>{formData.username.message}</div>
                         </div>
                         <div className='ed-form-error'>Campo obrigatório</div>
                         <div>
                             <FormInput
                                 { ...formData.password }
+                                onTurnDirty={handleTurnDirty}
                                 className="ed-form-control"
                                 onChange={handleInputChange}
                             />

@@ -10,6 +10,7 @@ import { MaterialDTO } from '../../../models/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../components/FormInput';
 
+
 export default function CompanyForms() {
     const navigate = useNavigate();
 
@@ -24,6 +25,10 @@ export default function CompanyForms() {
             name: "name",
             type: "text",
             placeholder: "Nome",
+            validation: function (value: string){
+                return value.length >= 3 && value.length <= 80;
+            },
+            message: "Favor informar um nome de 3 a 80 caracteres"
         },
         phone: {
             value: "",
@@ -58,7 +63,11 @@ export default function CompanyForms() {
             id: "cep",
             name: "cep",
             type: "text",
-            placeholder: "CEP"
+            placeholder: "CEP",
+            validation: function (value: string){
+                return /(^\d{5})-?(\d{3}$)/.test(value);
+            },
+            message: "Informe um CEP válido"
         },
         number: {
             value: "",
@@ -83,7 +92,11 @@ export default function CompanyForms() {
             id: "state",
             name: "state",
             type: "text",
-            placeholder: "UF"
+            placeholder: "UF",
+            validation: function (value: string){
+                return /^(\s*(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)?)$/.test(value.toUpperCase());
+            },
+            message: "Favor informar um UF válido"
         }
     })
 
@@ -95,8 +108,6 @@ export default function CompanyForms() {
             })
     }, [])
     useEffect(() => {
-        const obj = forms.validate(formAddressData, "number");
-        console.log(obj)
         if (isEditing) {
             companyService.findById(Number(params.companyId))
                 .then(response => {
@@ -116,25 +127,24 @@ export default function CompanyForms() {
     function handleInputChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        const dataUpdated = forms.update(formData, name, value);
-        const dataValidated = forms.validate(dataUpdated, name);
-        setFormData(dataValidated);
+        const result = forms.updateAndValidate(formData, name, value);
+        setFormData(result);
     }
     function handleInputAddressChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        const dataUpdated = forms.update(formAddressData, name, value);
-        const dataValidated = forms.validate(dataUpdated, name);
-        setFormAddressData(dataValidated);
+        const result = forms.updateAndValidate(formAddressData, name, value);
+        setFormAddressData(result);
     }
     function handleTurnDirty(name: string){
-        const newFormData = forms.toDirty(formData, name);
+        const newFormData = forms.dirtyAndValidate(formData, name);
         setFormData(newFormData);
     }
     function handleAddressTurnDirty(name: string){
-        const newFormData = forms.toDirty(formAddressData, name);
+        const newFormData = forms.dirtyAndValidate(formAddressData, name);
         setFormAddressData(newFormData);
     }
+
     return (
 
         <>
@@ -149,6 +159,7 @@ export default function CompanyForms() {
                                 className='ed-form-control'
                                 onChange={handleInputChange}
                             />
+                            <div className='ed-form-error'>{formData.name.message}</div>
                         </div>
                         <div>
                             <FormInput
@@ -192,7 +203,9 @@ export default function CompanyForms() {
                                     onTurnDirty={handleAddressTurnDirty}
                                     className='ed-form-control '
                                     onChange={handleInputAddressChange}
+                               
                                 />
+                                <div className='ed-form-error'>{formAddressData.state.message}</div>
                             </div>
                         </div>
                         <div>
@@ -202,6 +215,7 @@ export default function CompanyForms() {
                                 className='ed-form-control'
                                 onChange={handleInputAddressChange}
                             />
+                            <div className='ed-form-error'>{formAddressData.cep.message}</div>
                         </div>
                         <div className='ed-form-select'>
                             <Select
