@@ -119,6 +119,12 @@ main {
   padding-left: 4px;
   display: none;
 }
+.ed-form-control[data-invalid="true"]{
+  border: 1px solid var(--ed-color-error);
+}
+.ed-form-control[data-invalid="true"] ~ div{
+  display: unset;
+}
 
 .ed-form-control:focus {
   outline: none;

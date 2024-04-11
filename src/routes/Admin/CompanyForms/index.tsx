@@ -32,12 +32,12 @@ export default function CompanyForms() {
             type: "text",
             placeholder: "Telefone",
         },
-        materials:{
+        materials: {
             value: [],
             id: "materials",
             name: "materials",
             placeholder: "Materiais",
-            validation: function(value: MaterialDTO[]){
+            validation: function (value: MaterialDTO[]) {
                 return value.length > 0;
             },
             message: "Escolha ao menos um material"
@@ -69,7 +69,7 @@ export default function CompanyForms() {
             validation: function (value: any) {
                 return Number(value) > 0;
             },
-            message: "Favor informar um valor possitivo"
+            message: "O Nº deve ser possitivo"
         },
         city: {
             value: "",
@@ -100,7 +100,7 @@ export default function CompanyForms() {
         if (isEditing) {
             companyService.findById(Number(params.companyId))
                 .then(response => {
-                    const {address} = response.data
+                    const { address } = response.data
                     setFormData(forms.updateAll(formData, response.data));
                     setFormAddressData(forms.updateAll(formAddressData, address));
                 })
@@ -116,14 +116,23 @@ export default function CompanyForms() {
     function handleInputChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
-        setFormData(forms.update(formData, name, value));
+        const dataUpdated = forms.update(formData, name, value);
+        const dataValidated = forms.validate(dataUpdated, name);
+        setFormData(dataValidated);
+    }
+    function handleInputAddressChange(event: any) {
+        const value = event.target.value;
+        const name = event.target.name;
+        const dataUpdated = forms.update(formAddressData, name, value);
+        const dataValidated = forms.validate(dataUpdated, name);
+        setFormAddressData(dataValidated);
     }
     return (
 
         <>
             <div className='ed-search-form-container ed-mt20'>
                 <form className='ed-card ed-form' onSubmit={handleSubmit}>
-                    <h2> cadastro ponto de coleta</h2>
+                    <h2>cadastro ponto de coleta</h2>
                     <div className='ed-form-controls-container'>
                         <div>
                             <FormInput
@@ -143,31 +152,40 @@ export default function CompanyForms() {
                             <FormInput
                                 {...formAddressData.street}
                                 className='ed-form-control'
-                                onChange={handleInputChange}
+                                onChange={handleInputAddressChange}
+                            />
+
+                        </div>
+                        <div>
+                            <FormInput
+                                {...formAddressData.city}
+                                className='ed-form-control'
+                                onChange={handleInputAddressChange}
                             />
                         </div>
                         <div className='ed-form-address'>
-                            <FormInput
-                                {...formAddressData.number}
-                                className='ed-form-control ed-mb20'
-                                onChange={handleInputChange}
-                            />
-                            <FormInput
-                                {...formAddressData.city}
-                                className='ed-form-control ed-mb20 ed-ml5'
-                                onChange={handleInputChange}
-                            />
-                            <FormInput
-                                {...formAddressData.state}
-                                className='ed-form-control ed-mb20 ed-ml5'
-                                onChange={handleInputChange}
-                            />
+                            <div>
+                                <FormInput
+                                    {...formAddressData.number}
+                                    className='ed-form-control'
+                                    onChange={handleInputAddressChange}
+                                />
+                                <div className='ed-form-error'>{formAddressData.number.message}</div>
+                            </div>
+  
+                            <div className='ed-ml5 ed-mt20-input'>
+                                <FormInput
+                                    {...formAddressData.state}
+                                    className='ed-form-control '
+                                    onChange={handleInputAddressChange}
+                                />
+                            </div>
                         </div>
                         <div>
                             <FormInput
                                 {...formAddressData.cep}
                                 className='ed-form-control'
-                                onChange={handleInputChange}
+                                onChange={handleInputAddressChange}
                             />
                         </div>
                         <div className='ed-form-select'>

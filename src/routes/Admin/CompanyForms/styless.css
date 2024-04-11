@@ -21,6 +21,9 @@
 .ed-form-select{
     padding: unset;
 }
+.ed-mt20-input{
+    margin-top: 20px;
+}
 
 @media (width >=576px) {
     #search-section {
@@ -41,5 +44,8 @@
     }
     .ed-search-form-buttons-admin {
         display: flex;
+    }
+    .ed-mt20-input{
+        margin-top: 0px;
     }
 }

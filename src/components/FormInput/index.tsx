@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function FormInput(props: any) {
-    const { validation, ...inputProps } = props;
+    const { validation, invalid, ...inputProps } = props;
     return (
-        <input {...inputProps} />
+        <input {...inputProps} data-invalid={invalid}/>
     );
 }
