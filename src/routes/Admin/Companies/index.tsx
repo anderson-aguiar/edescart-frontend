@@ -93,10 +93,10 @@ export default function Companies() {
                                     <td className='ed-tb576'>{company.id}</td>
                                     <td className='ed-txt-left'>{company.name}</td>
                                     <td>
-                                        <img onClick={() => handleUpdateClick(company.id)} className='ed-company-listing-btn' src={editImg} alt='Editar' />
+                                        <img onClick={() => handleUpdateClick(Number(company.id))} className='ed-company-listing-btn' src={editImg} alt='Editar' />
                                     </td>
                                     <td>
-                                        <img onClick={() => handleDeleteClick(company.id)} className='ed-company-listing-btn' src={deleteImg} alt='Deletar' />
+                                        <img onClick={() => handleDeleteClick(Number(company.id))} className='ed-company-listing-btn' src={deleteImg} alt='Deletar' />
                                     </td>
                                 </tr>
                             ))

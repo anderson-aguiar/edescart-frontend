@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Select from 'react-select';
 import './styless.css';
 import ButtonPrimary from '../ButtonPrimary';
@@ -6,7 +7,9 @@ import * as materialService from '../../services/material-service';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { MaterialDTO } from '../../models/material';
 import { selectStyles } from '../../utils/select';
-
+import FormInput from '../FormInput';
+import * as forms from '../../utils/forms';
+import * as viaCep from "../../utils/viacep";
 type QueryParams = {
     name: string;
     postalCode: string;
@@ -21,7 +24,19 @@ export default function SearchCard({ onSearch }: Props) {
         postalCode: ''
     });
 
-
+    const [formData, setFormData] = useState<any>({
+        cep: {
+            value: "",
+            id: "cep",
+            name: "cep",
+            type: "text",
+            placeholder: "CEP",
+            validation: function (value: string) {
+                return /(^\d{5})-?(\d{3}$)/.test(value);
+            },
+            message: "Informe um CEP válido"
+        }
+    })
     const [materials, setMaterials] = useState<MaterialDTO[]>([]);
     useEffect(() => {
         materialService.findAllRequest()
@@ -30,17 +45,42 @@ export default function SearchCard({ onSearch }: Props) {
             })
     }, [])
     const handlePostalCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        setParams({ ...params, postalCode: newValue });
+        const value = e.target.value;
+        const name = e.target.name;
+        const result = forms.updateAndValidate(formData, name, value);
+        setFormData(result);
+        setParams({ ...params, postalCode: value });
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function handleTurnDirty(name: string) {
+        const newFormData = forms.dirtyAndValidate(formData, name);
+        setFormData(newFormData);
+    }
+
+    
     function handleSubmit(event: any) {
         event.preventDefault();
+        viaCep.checkCep(formData.cep.value)
+            .then(x => {
+                if (x.data.erro !== true) {
+                      setFormData(formData)
+                }
+                else {
+                    setFormData(forms.updateAndValidate(formData, "cep", ""))
+                    onSearch("", "");
+                    return;
+                }
+            })
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(formDataValidated)) {
+            setFormData(formDataValidated);
+            return;
+        }
         onSearch(params.name, params.postalCode);
     }
     function handleClear() {
         onSearch("", "");
-        setParams({ ...params, name: ''});
+        setParams({ ...params, name: '' });
+        setFormData(forms.update(formData, 'cep', ""))
     }
     return (
 
@@ -50,8 +90,13 @@ export default function SearchCard({ onSearch }: Props) {
                     <h2>buscar ponto de coleta</h2>
                     <div className='ed-form-controls-container'>
                         <div>
-                            <input className='ed-form-control' type="text" placeholder='CEP' name='cep'
-                                onChange={handlePostalCodeChange} />
+                            <FormInput
+                                {...formData.cep}
+                                onTurnDirty={handleTurnDirty}
+                                className='ed-form-control'
+                                onChange={handlePostalCodeChange}
+                            />
+                            <div className='ed-form-error'>{formData.cep.message}</div>
                         </div>
                         <div className='ed-form-select ed-form-control'>
                             <Select

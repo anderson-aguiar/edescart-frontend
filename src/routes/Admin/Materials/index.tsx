@@ -7,13 +7,15 @@ import { useEffect, useState } from 'react';
 import { MaterialDTO } from '../../../models/material';
 import DialogInfo from '../../../components/DialogInfo';
 import DialogConfirmation from '../../../components/DialogConfirmation';
+import { useNavigate } from 'react-router-dom';
 
 export default function Materials() {
+    const navigate = useNavigate();
     const [dialogInfoData, setDialogInfoData] = useState({
         visible: false,
         message: "Operação com sucesso!"
     })
-
+    
     const [dialogConfirmationData, setDialogConfirmationData] = useState({
         visible: false,
         id: 0,
@@ -32,7 +34,12 @@ export default function Materials() {
     function handleDeleteClick(materialId: number) {
         setDialogConfirmationData({ ...dialogConfirmationData, visible: true, id: materialId })
     }
-
+    function handleNewMaterialClick(){
+        navigate("/admin/material/create")
+    }
+    function handleUpdateClick(materialId: number){
+        navigate(`/admin/material/${materialId}`);
+    }
     function handleDialogInfoClose() {
         setDialogInfoData({ ...dialogInfoData, visible: false })
     }
@@ -54,7 +61,7 @@ export default function Materials() {
             <section id="material-listing-section" className='ed-container'>
                 <div className='ed-mt20 ed-line-bottom ed-material-listing-itens'>
                     <h2 className=' ed-listing-section-title '>Materiais</h2>
-                    <img src={addMaterial} alt='Adicionar Material' title='Add Novo' />
+                    <img src={addMaterial} alt='Adicionar Material' title='Add Novo' onClick={handleNewMaterialClick}/>
                 </div>
                 <table className="ed-table ed-mt20 ed-mb20">
                     <thead>
@@ -72,10 +79,10 @@ export default function Materials() {
                                     <td className='ed-tb576'>{material.id}</td>
                                     <td className='ed-txt-left'>{material.name}</td>
                                     <td>
-                                        <img className='ed-material-listing-btn' src={editImg} alt='Editar' />
+                                        <img onClick={() => handleUpdateClick(Number(material.id))} className='ed-material-listing-btn' src={editImg} alt='Editar' />
                                     </td>
                                     <td>
-                                        <img onClick={() => handleDeleteClick(material.id)} className='ed-material-listing-btn' src={deleteImg} alt='Deletar' />
+                                        <img onClick={() => handleDeleteClick(Number(material.id))} className='ed-material-listing-btn' src={deleteImg} alt='Deletar' />
                                     </td>
                                 </tr>
                             ))

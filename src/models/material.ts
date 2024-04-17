@@ -1,4 +1,4 @@
 export type MaterialDTO = {
-    id: number;
+    id?: number;
     name: string;
 }

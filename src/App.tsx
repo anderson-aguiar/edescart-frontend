@@ -11,6 +11,7 @@ import { PrivateRoute } from './components/PrivateRoute'
 import Companies from './routes/Admin/Companies'
 import Materials from './routes/Admin/Materials'
 import CompanyForms from './routes/Admin/CompanyForms'
+import MaterialForms from './routes/Admin/MaterialForms'
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path='companies' element={<Companies />} />
           <Route path='materials' element={<Materials />} />
           <Route path='company/:companyId' element={<CompanyForms />} />
+          <Route path='material/:materialId' element={<MaterialForms />} />
         </Route>
         <Route path='*' element={<Navigate to="/" />} />
       </Routes>
