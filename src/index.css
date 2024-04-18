@@ -199,3 +199,13 @@ main {
     font-size: 20px;
   }
 }
+.ed-link-cep{
+  cursor: pointer;
+  padding-left: 6px;
+  font-size: 12px;
+  text-decoration-line: underline;
+  margin-top: 2px;
+}
+.ed-link-cep:hover{
+  font-size: 14px;
+}

@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../components/FormInput';
 import FormSelect from '../../../components/FormSelect';
 import { CompanyDTO } from '../../../models/company';
+import { Link } from 'react-router-dom';
 
 export default function CompanyForms() {
     const navigate = useNavigate();
@@ -70,6 +71,7 @@ export default function CompanyForms() {
             placeholder: "CEP",
             validation: function (value: string) {
                 return /(^\d{5})-?(\d{3}$)/.test(value);
+
             },
             message: "Informe um CEP válido"
         },
@@ -92,6 +94,7 @@ export default function CompanyForms() {
             placeholder: "Cidade",
             validation: function (value: string) {
                 return /^([^ ]+).*$/.test(value);
+
             },
             message: "Favor informar uma cidade"
         },
@@ -127,6 +130,7 @@ export default function CompanyForms() {
                 })
         }
     }, [])
+
     function handleSubmit(event: any) {
         event.preventDefault();
         const formDataValidated = forms.dirtyAndValidateAll(formData);
@@ -250,6 +254,7 @@ export default function CompanyForms() {
                                 onChange={handleInputAddressChange}
                             />
                             <div className='ed-form-error'>{formAddressData.cep.message}</div>
+                            <div className='ed-link-cep'><a href={"https://buscacepinter.correios.com.br/app/endereco/index.php"} target='blank'>Não sei meu cep!</a></div>
                         </div>
                         <div>
                             <FormSelect

@@ -56,13 +56,13 @@ export default function SearchCard({ onSearch }: Props) {
         setFormData(newFormData);
     }
 
-    
+
     function handleSubmit(event: any) {
         event.preventDefault();
         viaCep.checkCep(formData.cep.value)
             .then(x => {
                 if (x.data.erro !== true) {
-                      setFormData(formData)
+                    setFormData(formData)
                 }
                 else {
                     setFormData(forms.updateAndValidate(formData, "cep", ""))
@@ -97,6 +97,7 @@ export default function SearchCard({ onSearch }: Props) {
                                 onChange={handlePostalCodeChange}
                             />
                             <div className='ed-form-error'>{formData.cep.message}</div>
+                            <div className='ed-link-cep'><a href={"https://buscacepinter.correios.com.br/app/endereco/index.php"} target='blank'>Não sei meu cep!</a></div>
                         </div>
                         <div className='ed-form-select ed-form-control'>
                             <Select
