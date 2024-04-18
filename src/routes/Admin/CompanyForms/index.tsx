@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../components/FormInput';
 import FormSelect from '../../../components/FormSelect';
 import { CompanyDTO } from '../../../models/company';
-import { Link } from 'react-router-dom';
+import * as viaCep from "../../../utils/viacep";
 
 export default function CompanyForms() {
     const navigate = useNavigate();
@@ -170,6 +170,19 @@ export default function CompanyForms() {
     function handleInputAddressChange(event: any) {
         const value = event.target.value;
         const name = event.target.name;
+        if (name === "cep") {
+            viaCep.checkCep(value)
+                .then(x => {
+                    if (x.data.erro === true) {
+                        const result = forms.updateAndValidate(formAddressData, name, "");
+                        forms.dirtyAndValidate(result, "cep");
+                        setFormAddressData(result);
+                    }
+                }).catch((error) => {
+                    console.log("Error", error);
+                })
+                
+        }
         const result = forms.updateAndValidate(formAddressData, name, value);
         setFormAddressData(result);
     }
